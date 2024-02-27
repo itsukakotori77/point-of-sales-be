@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.github.javafaker.Faker;
 import com.posapps.dtos.ProductDto;
 import com.posapps.dtos.ProductsAllDto;
@@ -185,7 +184,7 @@ public class ProductController {
       }
    }
 
-   @PostMapping("/inject_data")
+   @PostMapping("/initiate_data")
    public ResponseEntity<?> initData() {
       Map<String, Object> map = new LinkedHashMap<String, Object>();
       

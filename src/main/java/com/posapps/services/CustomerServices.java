@@ -2,6 +2,9 @@ package com.posapps.services;
 
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.posapps.entity.Customers;
 import com.posapps.repositories.CustomerRepositories;
@@ -34,5 +37,16 @@ public class CustomerServices {
 
    public void removeOne(Long id){
       customer.deleteById(id);
+   }
+
+   public Page<Customers> findAllCustomer(Integer offset, Integer pageSize, Optional<String> field){
+      Page<Customers> customerService = customer.findAll(
+         !field.isPresent() 
+            ? PageRequest.of(offset, pageSize)
+            : PageRequest.of(offset, pageSize).withSort(Sort.by(field.get()))
+
+      );
+
+      return customerService;
    }
 }

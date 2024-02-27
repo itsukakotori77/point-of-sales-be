@@ -33,20 +33,17 @@ public class ProductServices {
 
    public Iterable<Products> findAll() {
       return product.findAll();
-      // List<Products> allProduct = product.findAll();
-      // allProduct.size();
-
-      // return allProduct;
    }
 
    public void removeOne(Long id) {
       product.deleteById(id);
    }
 
-   public Page<Products> findProductWithPagination(Integer offset, Integer pageSize, String field) {
+   public Page<Products> findProductWithPagination(Integer offset, Integer pageSize, Optional<String> field) {
       Page<Products> productService = product.findAll(
-            PageRequest.of(offset, pageSize)
-               .withSort(Sort.by(field))
+            !field.isPresent()
+                  ? PageRequest.of(offset, pageSize)
+                  : PageRequest.of(offset, pageSize).withSort(Sort.by(field.get()))
             );
 
       return productService;
